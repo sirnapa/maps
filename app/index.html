@@ -10,6 +10,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/mapbox.js/mapbox.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -25,7 +26,7 @@
     <div class="header">
       <div class="container">
         <ul class="nav nav-pills pull-right">
-          <li><a href="http://leafletjs.com">Leaflet</a></li>
+          <li><a href="http://mapbox.com">Mapbox</a></li>
           <li><a href="https://www.mapbox.com/labs/twitter-gnip/brands/#7/33.555/-95.801">Ejemplo "Uso de Twitter"</a></li>
         </ul>
         <h3 class="text-muted">Mapas</h3>
@@ -38,7 +39,9 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="bower_components/mapbox.js/mapbox.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -58,7 +61,7 @@
     <!-- endbuild -->
 
     <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="scripts/main.js"></script>
+    <script src="scripts/custom.js"></script>
     <!-- endbuild -->
 </body>
 </html>

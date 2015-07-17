@@ -1,53 +1,19 @@
-var map;
-function initialize() {
+L.mapbox.accessToken = 'pk.eyJ1IjoicmNhbnRlcm8iLCJhIjoiNWM0NjRiODRhNDViOGNmZDhkZGRhZTgyZTQwYjZkZmEifQ.08WmjdH-gAz_eekkz-tDmA';
 
-  // Create an array of styles.
-  var styles = [
-    {
-      "stylers": [
-        { "saturation": -90 },
-        { "lightness": -80 }
-      ]
-    },
-    {
-      elementType: 'labels',
-      stylers: [
-        { visibility: 'off' }
-      ]
-    },
-  ];
+var map = L.mapbox.map('map', 'mapbox.dark')
+    .setView([40, -74.50], 9);
 
-  // Create a new StyledMapType object, passing it the array of styles,
-  // as well as the name to be displayed on the map type control.
-  var styledMap = new google.maps.StyledMapType(styles,
-    {name: "Styled Map"});
+var geocoder = L.mapbox.geocoder('mapbox.places');
 
-  // Initialize map
-  map = new google.maps.Map(document.getElementById('map'), {});
+geocoder.query('Paraguay', showMap);
 
-  // Center on Paraguay
-  var country = "Paraguay";
-  var geocoder = new google.maps.Geocoder();
-
-  geocoder.geocode( {'address' : country}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          map.fitBounds(results[0].geometry.bounds);
-      }
-  });
-
-  //Associate the styled map with the MapTypeId and set it to display.
-  map.mapTypes.set('map_style', styledMap);
-  map.setMapTypeId('map_style');
-
-  // Marker
-  var myLatlng = new google.maps.LatLng(-23.4347092,-58.4483503);
-  var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'Marker',
-      icon: 'images/marker.png'
-  });
+function showMap(err, data) {
+    // The geocoder can return an area, like a city, or a
+    // point, like an address. Here we handle both cases,
+    // by fitting the map bounds to an area or zooming to a point.
+    if (data.lbounds) {
+        map.fitBounds(data.lbounds);
+    } else if (data.latlng) {
+        map.setView([data.latlng[0], data.latlng[1]], 13);
+    }
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
